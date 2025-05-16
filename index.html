@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pothole Sweeper</title>
+
+<!-- Leaflet CSS -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""/>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<style>
+
+
+</style>
+</head>
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script>
+    <canvas id="confetti"></canvas>
+    <div id="map"></div>
+
+    <div id="search-container">
+        <form id="search-form" method="post">
+            <input type="text" id="search_query" name="search_query" placeholder="Enter a Location" required>
+            <!-- <button type="submit">Search</button>  -->
+        </form>
+        <button id="freeze-map-button">Start Game</button>
+    </div>
+    <div id="grid-container">
+        <div id="game-area">
+            <div id="mine-count-container">
+                Impediment Left: <span id="mine-count">0</span>
+            </div>
+            <div id="game-container"></div> <!-- The game grid will be placed here -->
+        </div>
+    </div>
+
+    {% if error_message %}
+        <p class="error">{{ error_message }}</p>
+    {% endif %}
+
+    <div id="game-over-popup">
+        <h2>Game Over!</h2>
+        <button id="reset-button">Reset</button>
+        <button id="restart-button">Restart</button>
+    </div>
+    <div id="win-popup">
+        <h2>You Won!</h2>
+        <button id="restart-button-won">Restart</button>
+    </div>
+
+    <div id="lose-popup">
+        <h2>You Lost!</h2>
+        <button id="reset-button-lose">Reset</button>
+        <button id="restart-button-lose">Restart</button>
+    </div>
+
+    <div id="overlay"></div>
+
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+            crossorigin=""></script>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <script>
+
+        // Event listeners here
+        document.getElementById('reset-button').addEventListener('click', resetGrid);
+        document.getElementById('restart-button').addEventListener('click', () => {
+            location.reload(); // Reload the page to restart
+        });
+
+    </script>
+    
+</body>
+</html>
